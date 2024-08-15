@@ -2,7 +2,7 @@
 **Base-Bot Simple de Whatsapp hecho en Python utilizando <a href="https://github.com/ToxiPain/snakechat">Mod: Snakechat API</a>.**. 
 KomodoBot-Python es un Bot simple, optimizado y sencillo de editar. Disponible para editarse de forma facil para crear un bot funcional y útil en poco tiempo y sin esfuerzos.
 
-#### `Info. Oficial:`
+## Info. Oficial:
 **-Contactanos:**
 
 <a href="http://wa.me/50557418454" target="blank"><img src="https://img.shields.io/badge/ToxiPain-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
