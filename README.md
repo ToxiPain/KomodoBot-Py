@@ -14,6 +14,6 @@ KomodoBot-Python es un Bot simple, optimizado y sencillo de editar. Disponible p
 )](https://whatsapp.com/channel/0029VaeaBGb2UPB80GbJ420a)  <a href="https://whatsapp.com/channel/0029VaeaBGb2UPB80GbJ420a"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/WhatsApp_logo-color-vertical.svg/1200px-WhatsApp_logo-color-vertical.svg.png" height="29px">
 </a>
 
-#### Instalación:
-`**Termux >_**`
+## Instalación:
+### `Termux >_`
 Actualmente no tenemos soporte en termux 
