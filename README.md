@@ -1,4 +1,4 @@
-# KomodoBot-Python 🌅
+# KomodoBot-Python 1.0.1 🌅
 **Base-Bot Simple de Whatsapp hecho en Python utilizando <a href="https://github.com/ToxiPain/snakechat">Mod: Snakechat API</a>.**. 
 KomodoBot-Python es un Bot simple, optimizado y sencillo de editar. Disponible para editarse de forma facil para crear un bot funcional y útil en poco tiempo y sin esfuerzos.
 
@@ -21,10 +21,11 @@ Estas son los metodos de instalación disponibles actualmente:
 > Actualmente no tenemos soporte en termux y sistemas base ARM.
 
 ### `▢ Activar en Replit 🔶`
+Activa el Bot desde la plataforma de Replit: 
 [![Run on Repl.it](https://repl.it/badge/github/ToxiPain/KomodoBot-Py)](https://repl.it/github/ToxiPain/KomodoBot-Py)
 
 ### `▢ Instalar en Windows 🖥️`
-1. Clonar el repositorio. 
+1. Clonar el repositorio:
    ```bash
    git clone https://github.com/ToxiPain/KomodoBot-Py.git
    ```
@@ -32,11 +33,18 @@ Estas son los metodos de instalación disponibles actualmente:
    ```bash
    pip install -r requirements.txt
    ```
-3. Iniciar el Bot
+3. Iniciar el Bot:
    ```bash
    py index.py
    ```
-> Cada que cierres la consola o el bot se detenga solo tendrás que repetir este comando para volver a iniciar el bot.
+> Cada que cierres la consola o el bot se detenga solo tendrás que repetir este ultimo comando para volver a iniciar el bot.
 
 ### `▢ Instalalo en Nuestro Host Privado Activo 24/7 (PROXIMAMENTE)`
+
+## Errores Frecuentes:
+*En caso de saltar el error de "Libmagic" en windows usar:*
+> pip uninstall python-magic
+Darle a "Y" y luego
+> pip install python-magic-bin==0.4.14
+Esto debería solucionar ese error.
 
