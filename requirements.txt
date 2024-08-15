@@ -1,0 +1,17 @@
+beautifulsoup4==4.12.3
+certifi==2024.7.4
+charset-normalizer==3.3.2
+ffmpeg-python==0.2.0
+future==1.0.0
+idna==3.7
+linkpreview==0.8.3
+phonenumbers==8.13.40
+neonize==0.2.0
+pillow==10.4.0
+protobuf==4.25.3
+python-magic==0.4.27
+requests==2.32.3
+segno==1.6.1
+soupsieve==2.5
+tqdm==4.66.4
+urllib3==2.2.2
