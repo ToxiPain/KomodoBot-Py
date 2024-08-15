@@ -15,5 +15,5 @@ KomodoBot-Python es un Bot simple, optimizado y sencillo de editar. Disponible p
 </a>
 
 ## Instalación:
-### `Termux >_`
-Actualmente no tenemos soporte en termux 
+### `▢ Termux >_`
+> Actualmente no tenemos soporte en termux y sistemas base ARM. 
