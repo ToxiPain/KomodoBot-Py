@@ -15,5 +15,13 @@ KomodoBot-Python es un Bot simple, optimizado y sencillo de editar. Disponible p
 </a>
 
 ## Instalación:
-### `▢ Termux >_`
-> Actualmente no tenemos soporte en termux y sistemas base ARM. 
+Estas son los metodos de instalación disponibles actualmente:
+
+### `▢ Uso en Termux >_`
+> Actualmente no tenemos soporte en termux y sistemas base ARM.
+
+### `▢ Activar en Replit 🔶`
+[![Run on Repl.it](https://repl.it/badge/github/ToxiPain/KomodoBot-Py)](https://repl.it/github/ToxiPain/KomodoBot-Py)
+
+### `▢ Instalar en Windows 🖥️`
+ ```git clone 
