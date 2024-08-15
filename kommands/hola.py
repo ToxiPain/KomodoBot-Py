@@ -6,4 +6,4 @@ def register(commands):
 
 def hola(client: NewClient, message: MessageEv, args):
     chat = message.Info.MessageSource.Chat
-    client.send_message(chat, "Hola mundo") # Acá cambias lo que quieres que diga el bot
+    client.send_message(chat, "Hola soy KomodoBot!") # Acá cambias lo que quieres que diga el bot
