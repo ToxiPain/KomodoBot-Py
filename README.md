@@ -14,6 +14,14 @@ KomodoBot-Python es un Bot simple, optimizado y sencillo de editar. Disponible p
 )](https://whatsapp.com/channel/0029VaeaBGb2UPB80GbJ420a)  <a href="https://whatsapp.com/channel/0029VaeaBGb2UPB80GbJ420a"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/WhatsApp_logo-color-vertical.svg/1200px-WhatsApp_logo-color-vertical.svg.png" height="29px">
 </a>
 
+## Funcionalidades:
+Actualmente contamos con las siguientes funcionalidades:
+
+* **Definir distintos envios de mensajes de texto**
+* **Comando IA personalizable**
+* **Envio de Imagenes personalizadas por medio de link y archivo**
+* **En futuras versiones se añadirán mas funciones...**
+
 ## Instalación:
 Estas son los metodos de instalación disponibles actualmente:
 
@@ -48,5 +56,7 @@ Activa el Bot desde la plataforma de Replit:
 Darle a "Y" y luego
 
 > pip install python-magic-bin==0.4.14
+
 Esto debería solucionar ese error.
 
+PROXIMAMENTE SERÁN AÑADIDAS NUEVAS FUNCIONES BASES.
