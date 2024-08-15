@@ -44,7 +44,9 @@ Activa el Bot desde la plataforma de Replit:
 ## Errores Frecuentes:
 *En caso de saltar el error de "Libmagic" en windows usar:*
 > pip uninstall python-magic
+
 Darle a "Y" y luego
+
 > pip install python-magic-bin==0.4.14
 Esto debería solucionar ese error.
 
