@@ -29,8 +29,8 @@ Estas son los metodos de instalación disponibles actualmente:
 > Actualmente no tenemos soporte en termux y sistemas base ARM.
 
 ### `▢ Activar en Replit 🔶`
-
 Activa el Bot desde la plataforma de Replit: 
+
 [![Run on Repl.it](https://repl.it/badge/github/ToxiPain/KomodoBot-Py)](https://repl.it/github/ToxiPain/KomodoBot-Py)
 
 ### `▢ Instalar en Windows 🖥️`
