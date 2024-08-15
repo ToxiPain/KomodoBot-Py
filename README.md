@@ -24,4 +24,19 @@ Estas son los metodos de instalación disponibles actualmente:
 [![Run on Repl.it](https://repl.it/badge/github/ToxiPain/KomodoBot-Py)](https://repl.it/github/ToxiPain/KomodoBot-Py)
 
 ### `▢ Instalar en Windows 🖥️`
- ```git clone 
+1. Clonar el repositorio. 
+   ```bash
+   git clone https://github.com/ToxiPain/KomodoBot-Py.git
+   ```
+2. Instalar dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Iniciar el Bot
+   ```bash
+   py index.py
+   ```
+> Cada que cierres la consola o el bot se detenga solo tendrás que repetir este comando para volver a iniciar el bot.
+
+### `▢ Instalalo en Nuestro Host Privado Activo 24/7 (PROXIMAMENTE)`
+
