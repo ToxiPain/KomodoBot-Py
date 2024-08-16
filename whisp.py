@@ -51,13 +51,3 @@ def initialize(client):
             return get_bytes_from_name_or_url(url, MediaType.VIDEO)
         elif media_type == "audio":
             return get_bytes_from_name_or_url(url, MediaType.AUDIO)
-
-    def remove_background(client: NewClient, message: MessageEv, chat, image_message):
-        img_data = image_message.imageMessage.jpegThumbnail
-        img = Image.open(BytesIO(img_data))
-        img = img.convert("RGBA")
-        new_img = Image.new("RGBA", img.size, (255, 255, 255, 0))
-        img = Image.alpha_composite(new_img, img)
-        output = BytesIO()
-        img.save(output, format="PNG")
-        client.send_message(chat, client.build_image_message(output.getvalue(), "Background removed"))
