@@ -8,9 +8,8 @@ def register(commands):
 def dado(client: NewClient, message: MessageEv, args):
     chat = message.Info.MessageSource.Chat
     
-    messages = ["1", "2", "3", "4", "5", "6"]
+    messages = ["1", "2", "3", "4", "5", "6"] # Acá se definen las variables que se elegiran aleatoriamente, puedes cambiarlo por texto o lo que quieras.
     
     random_message = random.choice(messages)
     
-    # Enviar el mensaje con información adicional
     client.reply_message(f"El resultado del dado es: {random_message}", message)
