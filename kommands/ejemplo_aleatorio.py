@@ -4,7 +4,7 @@ from neonize.client import NewClient
 from neonize.events import MessageEv
 
 def register(commands):
-    commands["dado"] = dado # Acá se cambia el prefijo.
+    commands["dado"] = dado #Acá se define el comando, cambialo por el que tu quieras, el prefijo se añade automaticamente y puedes cambiarlo en "config.py" en la parte de prefix.
 
 def dado(client: NewClient, message: MessageEv, args):
     chat = message.Info.MessageSource.Chat
