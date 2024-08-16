@@ -61,9 +61,3 @@ def initialize(client):
         output = BytesIO()
         img.save(output, format="PNG")
         client.send_message(chat, client.build_image_message(output.getvalue(), "Background removed"))
-
-    def fetch_content(client: NewClient, url: str):
-        if "tiktok" in url:
-            return {"status": "success", "type": "video", "content": "TikTok video content"}
-        elif "instagram" in url:
-            return {"status": "success", "type": "image", "content": "Instagram image content"}
