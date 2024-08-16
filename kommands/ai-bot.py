@@ -4,14 +4,13 @@ from config import groq_apikey
 def ai_command(client, message, args):
     chat = message.Info.MessageSource.Chat
     
-    # Verificar si el usuario no ha proporcionado ningún texto después del comando /ai
     if len(args) == 0:
-        client.send_message(chat, "Uso de comando: Escribe lo que le dirás al bot, ejemplo de uso /ai (texto)")
-        returns
+        client.reply_message("Uso de comando: Escribe lo que le dirás al bot, ejemplo de uso /bot (texto)", message)
+        return
     
     user_message = " ".join(args)
     response = chat_groq(user_message)
-    client.send_message(chat, response)
+    client.reply_message(response, message)
 
 def chat_groq(msg):
     apikey = random.choice(groq_apikey)
@@ -19,7 +18,7 @@ def chat_groq(msg):
         "Authorization": f"Bearer {apikey}",
         "Content-Type": "application/json"
     }
-
+# Acá podrás editar cual quieres que sea la indicación inicial de la IA
     prompt = "Hola tu serás un bot de whatsapp, podrás conversar y entretener. Tu nombre es KomodoBot y fuiste creado por ToxiPain"
 
     data = {
@@ -42,3 +41,5 @@ def chat_groq(msg):
 
 def register(commands):
     commands["bot"] = ai_command
+    commands["ia"] = ai_command
+    commands["ai"] = ai_command
