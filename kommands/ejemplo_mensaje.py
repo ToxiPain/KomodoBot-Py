@@ -9,4 +9,4 @@ def hola(client: NewClient, message: MessageEv, args):
     chat = message.Info.MessageSource.Chat
     client.send_message(chat, "Hola soy KomodoBot!") # Acá cambias lo que quieres que diga el bot
     
-# Puedes cambiar client.send_message a client.reply_message para que pase de simplemente mandar texto plano a contestar el mensaje del comando.
+# Puedes cambiar client.send_message a client.reply_message para que pase de simplemente mandar texto plano a citar el mensaje del comando.
