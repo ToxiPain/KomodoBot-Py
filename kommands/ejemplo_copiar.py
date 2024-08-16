@@ -1,4 +1,4 @@
-# Ejemplo de mensaje con boton de copiar texto. Edita el texto dentro de comillas.
+# Ejemplo de mensaje con botón interactivo para copiar texto. Edita el texto dentro de comillas.
 from neonize.client import NewClient
 from neonize.events import MessageEv
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
