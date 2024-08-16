@@ -1,4 +1,4 @@
-# Ejemplo de envio de mensaje con funciones aleatorias. 
+# Ejemplo de envio de mensaje con funciones aleatorias. Edita el texto dentro de comillas.
 import random
 from neonize.client import NewClient
 from neonize.events import MessageEv
