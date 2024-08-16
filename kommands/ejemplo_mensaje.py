@@ -4,6 +4,7 @@ from neonize.events import MessageEv
 
 def register(commands):
     commands["hola"] = hola #Acá se define el comando, cambialo por el que tu quieras, el prefijo se añade automaticamente y puedes cambiarlo en "config.py" en la parte de prefix.
+   # commands["adios"] = hola # Puedes añadir mas prefijos si los necesitas, de esta manera.
 
 def hola(client: NewClient, message: MessageEv, args):
     chat = message.Info.MessageSource.Chat
