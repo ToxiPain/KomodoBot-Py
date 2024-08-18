@@ -29,7 +29,9 @@ Estas son los metodos de instalación disponibles actualmente:
 
 ### `▢ Uso en Termux >_`
 > Primero debes descargar el repositorio, arriba a la derecha en la parte de "Code" dar a Download ZIP y extraer la carpeta.
+
 *1. Descargar Termux:* https://f-droid.org/packages/com.termux/
+
 
 ### `▢ Activar en Replit 🔶`
 Activa el Bot desde la plataforma de Replit: 
