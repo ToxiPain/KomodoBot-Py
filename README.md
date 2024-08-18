@@ -28,11 +28,32 @@ Actualmente contamos con las siguientes funcionalidades:
 Estas son los metodos de instalación disponibles actualmente:
 
 ### `▢ Uso en Termux >_`
-> Primero debes descargar el repositorio, arriba a la derecha en la parte de "Code" dar a Download ZIP y extraer la carpeta.
+> Primero debes descargar el repositorio, arriba a la derecha en la parte de "Code" dar a Download ZIP y una vez descargado extraer la carpeta dentro de descargas.
 
-*1. Descargar Termux:* https://f-droid.org/packages/com.termux/
+1. Descargar Termux:* https://f-droid.org/packages/com.termux/
+2. Dentro de termux permiso a archivos:
+      ```bash
+   termux-setup-storage
+   ```
+3. Ir al directorio del bot:
+   ```bash
+   cd storage/downloads/KomodoBot-Py-master/KomodoBot-Py-master
+   ```
+4. Instalar dependencias:
+   ```bash
+   pkg install python && pip install -r requirements.txt && pkg install file
+   ```
+5. Activar en segundo plano (opcional para que funcione aun cerrando termux)
+   ```bash
+   termux-wake-lock
+   ```
+6. Ejecutar el bot
+   ```bash
+   python index.py
+   ```
 
-
+> Cada que se apague solo deberás seguir el paso 3 y 6 unicamente
+   
 ### `▢ Activar en Replit 🔶`
 Activa el Bot desde la plataforma de Replit: 
 
@@ -51,7 +72,6 @@ Activa el Bot desde la plataforma de Replit:
    ```bash
    py index.py
    ```
-> Cada que cierres la consola o el bot se detenga solo tendrás que repetir este ultimo comando para volver a iniciar el bot.
 
 ### `▢ Instalalo en Nuestro Host Privado Activo 24/7 (PROXIMAMENTE)`
 
