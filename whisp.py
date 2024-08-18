@@ -6,12 +6,11 @@ from neonize.events import MessageEv
 from neonize.utils.message import get_message_type
 import json
 import os
-import config  # Importar el archivo de configuración
+import config  
 
 commands = {}
-komodo_key = None  # Variable global para almacenar la KomodoKey
+komodo_key = None  
 
-# Partes de la clave en variables separadas
 parta = "38"
 partb = "k-"
 partc = "26"
@@ -19,24 +18,21 @@ partd = "50"
 parte = "84"
 
 def build_komodo_key():
-    """Combina las partes de la clave en el orden deseado utilizando una función enmascarada."""
     parts = [partb, parta, partc, partd, parte]
     return ''.join([parts[i] for i in range(len(parts))])
 
-# Construir la clave completa
 complete_komodo_key = build_komodo_key()
 
-# Definir la ruta completa al archivo JSON
 komodo_key_path = os.path.join('datamedia', 'komodokey.json')
 
 def save_komodo_key(key):
-    os.makedirs(os.path.dirname(komodo_key_path), exist_ok=True)  # Crear el directorio si no existe
+    os.makedirs(os.path.dirname(komodo_key_path), exist_ok=True) 
     with open(komodo_key_path, 'w') as file:
         json.dump({"komodo_key": key}, file)
 
 def load_komodo_key():
     if not os.path.exists(komodo_key_path):
-        return None  # Si el archivo no existe, devuelve None
+        return None  
 
     try:
         with open(komodo_key_path, 'r') as file:
@@ -50,7 +46,6 @@ def load_komodo_key():
         return None
 
 def load_commands():
-    """Carga todos los módulos en la carpeta kommands y registra los comandos."""
     for _, module_name, _ in pkgutil.iter_modules(['kommands']):
         module = importlib.import_module(f'kommands.{module_name}')
         if hasattr(module, 'register'):
@@ -71,14 +66,14 @@ def handler(client: NewClient, message: MessageEv):
                 key = text.split(" ")[1]
                 if key == complete_komodo_key:
                     komodo_key = key
-                    save_komodo_key(komodo_key)  # Guardar la KomodoKey en un archivo
-                    client.reply_message("KomodoKey definida correctamente!", message)
+                    save_komodo_key(komodo_key)  
+                    client.reply_message("KomodoKey definida correctamente! ✅", message)
                 else:
-                    client.reply_message("KomodoKey incorrecta!", message)
+                    client.reply_message("KomodoKey incorrecta!!", message)
                 return
 
         if komodo_key is None:
-            client.reply_message("Por favor, define la KomodoKey con [prefijo]key [tu_clave] para usar comandos.", message)
+            client.reply_message("Por favor, define la KomodoKey con /key [tu_clave] para usar comandos.\n\nPuedes pedirla a: wa.me/505574184", message)
             return
 
         command = text.split(" ")[0][1:]
@@ -86,9 +81,9 @@ def handler(client: NewClient, message: MessageEv):
 
         if command in commands:
             commands[command](client, message, args)
-            config.commands_processed += 1  # Incrementar el contador de comandos procesados
+            config.commands_processed += 1  
         else:
-            # Enviar mensaje de comando no encontrado
+            
             client.reply_message("Lo siento, comando no encontrado!", message)
             logging.info(f"Comando no encontrado: {command}")
     else:
