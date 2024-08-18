@@ -21,7 +21,8 @@ Actualmente contamos con las siguientes funcionalidades:
 
 * **Definir distintos envios de mensajes de texto**
 * **Comando IA personalizable**
-* **Envio de Imagenes personalizadas por medio de link y archivo**
+* **Envio de Imagenes personalizadas**
+* **Envio de Botones Interactivos**
 * **En futuras versiones se añadirán mas funciones...**
 
 ## Instalación:
