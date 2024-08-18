@@ -19,7 +19,7 @@ client = NewClient("komodo_session.sqlite3")
 
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
-    log.info("✧━━━━━━ KOMODO BOT PY 🌅 ━━━━━━✧ ------------------------------------------ CONECTADO CON EXITO!! ✅")
+    log.info("✧━━━━━━ WELCOME TO | KOMODO BOT PY 🌅 | ━━━━━━✧ --------------------------------------------------------- lISTO, BOT CONECTADO CON EXITO!! ✅")
 
 @client.event(PairStatusEv)
 def on_pair_status(client: NewClient, event: PairStatusEv):
