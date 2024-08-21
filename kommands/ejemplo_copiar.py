@@ -43,4 +43,4 @@ def copy(client: NewClient, message: MessageEv, args):
     client.send_message(chat, interactive_message)
 
 def register(commands):
-    commands["copy"] = copy #Acá se define el comando, cambialo por el que tu quieras, el prefijo se añade automaticamente y puedes cambiarlo en "config.py" en la parte de prefix.
+    commands["copiar"] = copy #Acá se define el comando, cambialo por el que tu quieras, el prefijo se añade automaticamente y puedes cambiarlo en "config.py" en la parte de prefix.
