@@ -1,4 +1,3 @@
-# Ejemplo de envio de mensaje simple. Edita el texto dentro de comillas.
 from neonize.client import NewClient
 from neonize.events import MessageEv
 
