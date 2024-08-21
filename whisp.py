@@ -67,13 +67,13 @@ def handler(client: NewClient, message: MessageEv):
                 if key == complete_komodo_key:
                     komodo_key = key
                     save_komodo_key(komodo_key)  
-                    client.reply_message("KomodoKey definida correctamente! ✅", message)
+                    client.reply_message("*KomodoKey definida correctamente! ✅*", message)
                 else:
-                    client.reply_message("KomodoKey incorrecta!!", message)
+                    client.reply_message("*KomodoKey incorrecta!!*", message)
                 return
 
         if komodo_key is None:
-            client.reply_message("Por favor, define la KomodoKey con /key [tu_clave] para usar comandos.\n\nPuedes pedirla a: wa.me/505574184", message)
+            client.reply_message("*Por favor, define la KomodoKey con /key [tu_clave] para usar comandos.*\n\n*Puedes pedirla a:*\n*Mi creador:* wa.me/50557418454\n*Grupo Oficial:* https://chat.whatsapp.com/EnkVyluXN2rDtrCekiYxxD", message)
             return
 
         command = text.split(" ")[0][1:]
