@@ -29,7 +29,7 @@ def boton(client: NewClient, message: MessageEv, args):
                     nativeFlowMessage=InteractiveMessage.NativeFlowMessage(
                         buttons=[
                             InteractiveMessage.NativeFlowMessage.NativeFlowButton(
-                                name="reply_message",
+                                name="quick_reply",
                                 buttonParamsJSON='{"display_text":"💬TEXTO DEL BOTON💬","id":"/hola"}',  # Texto de los botones, edita la parte de "/hola" con el comando que quieres que active el boton al ser utilizado 
                             ),
                         ]
