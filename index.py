@@ -19,9 +19,6 @@ client = NewClient("komodo_session.sqlite3")
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     log.info("✧━━━━━━ KOMODO BOT PY 🌅 ━━━━━━✧ ------------------------------------------------------------------ LISTO, BOT CONECTADO CON EXITO!! ✅")
-    
-    # Enviar un mensaje automático al conectarse
-    client.send_message("50557418454@s.whatsapp.net", "El bot se ha conectado correctamente.")
 
 @client.event(PairStatusEv)
 def on_pair_status(client: NewClient, event: PairStatusEv):
