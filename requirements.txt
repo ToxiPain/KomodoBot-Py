@@ -7,7 +7,7 @@ idna==3.7
 psutil==6.0.0
 linkpreview==0.8.3
 phonenumbers==8.13.40
-neonize==0.1.6
+neonize==0.2.1
 pillow==10.4.0
 protobuf==4.25.3
 python-magic==0.4.27
