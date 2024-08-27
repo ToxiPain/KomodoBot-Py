@@ -51,6 +51,11 @@ def load_commands():
         if hasattr(module, 'register'):
             module.register(commands)
 
+    for _, module_name, _ in pkgutil.iter_modules(['datamedia/comandos_de_prueba']):
+        module = importlib.import_module(f'datamedia.comandos_de_prueba.{module_name}')
+        if hasattr(module, 'register'):
+            module.register(commands)     
+
 def handler(client: NewClient, message: MessageEv):
     global komodo_key
     text = message.Message.conversation or message.Message.extendedTextMessage.text
