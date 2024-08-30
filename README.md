@@ -1,4 +1,4 @@
-NOTA: HAY FUNCIONES QUE AÚN SIGUEN EN FASE DE PRUEBA, CUALQUIER ERROR FAVOR REPORTARLO
+> NOTA: HAY FUNCIONES QUE AÚN SIGUEN EN FASE DE PRUEBA, CUALQUIER ERROR FAVOR REPORTARLO
 
 # KomodoBot-Python 1.0.2 🌅
 **Base-Bot Simple de Whatsapp hecho en Python utilizando <a href="https://github.com/ToxiPain/snakechat">Mod: Snakechat API</a>.**. 
