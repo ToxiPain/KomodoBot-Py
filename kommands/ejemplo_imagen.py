@@ -15,6 +15,6 @@ def imagen(client: NewClient, message: MessageEv, args):
     client.send_image(
         chat,
         image_path,
-        caption="Imagen de KomodoBot!", # Texto que envia junto con la imagen
+        caption="*Imagen de KomodoBot !*", # Texto que envia junto con la imagen
         quoted=message,  # Elimina esto si no quieres que cite el mensaje original
     )
