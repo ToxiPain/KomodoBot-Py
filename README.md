@@ -32,7 +32,7 @@ Estas son los metodos de instalación disponibles actualmente:
 > Primero debes descargar el repositorio, arriba a la derecha en la parte de "Code" dar a Download ZIP y una vez descargado extraer la carpeta dentro de descargas.
 
 1. Descargar Termux: https://f-droid.org/packages/com.termux/
-<h4>Python WhatsappBot created by library neonize</h4>
+<h4></h4>
 <pre>
 <p># Instalación en Termux</p>
 termux-setup-storage
