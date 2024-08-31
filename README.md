@@ -48,8 +48,7 @@ pip install -r requirements.txt
 python index.py
 </pre>
 
-
-> Cada que se apague solo deberás seguir el paso 3 y 6 unicamente
+> Reconectar en Termux: cd storage/downloads/KomodoBot-Py-master/KomodoBot-Py-master && python index.py
    
 ### `▢ Activar en Replit 🔶`
 Activa el Bot desde la plataforma de Replit: 
