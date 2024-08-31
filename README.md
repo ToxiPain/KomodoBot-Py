@@ -31,7 +31,7 @@ Estas son los metodos de instalación disponibles actualmente:
 ### `▢ Uso en Termux >_`
 > Primero debes descargar el repositorio, arriba a la derecha en la parte de "Code" dar a Download ZIP y una vez descargado extraer la carpeta dentro de descargas.
 
-1. Descargar Termux:* https://f-droid.org/packages/com.termux/
+1. Descargar Termux: https://f-droid.org/packages/com.termux/
 2. Dentro de termux permiso a archivos:
       ```bash
    termux-setup-storage
@@ -40,18 +40,18 @@ Estas son los metodos de instalación disponibles actualmente:
    ```bash
    cd storage/downloads/KomodoBot-Py-master/KomodoBot-Py-master
    ```
-4. Instalar dependencias:
-   ```bash
-   pkg install python && pip install -r requirements.txt && pkg install file
-   ```
-5. Activar en segundo plano (opcional para que funcione aun cerrando termux)
-   ```bash
-   termux-wake-lock
-   ```
-6. Ejecutar el bot
-   ```bash
-   python index.py
-   ```
+<p># Installation for termux</p>
+pkg update && pkg upgrade -y
+pkg install python3
+
+pkg install libjpeg-turbo
+LDFLAGS="-L/system/lib/" CFLAGS="-I/data/data/com.termux/files/usr/include/" pip install Pillow
+
+pip install python-magic
+pip install -r requirements.txt
+python index.py
+</pre>
+
 
 > Cada que se apague solo deberás seguir el paso 3 y 6 unicamente
    
