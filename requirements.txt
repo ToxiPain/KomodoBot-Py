@@ -15,5 +15,7 @@ requests==2.32.3
 segno==1.6.1
 soupsieve==2.5
 tqdm==4.66.4
+asyncio==3.4.3
+characterai==1.0.1
 urllib3==2.2.2
 #add snakechat @all
