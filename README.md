@@ -32,18 +32,11 @@ Estas son los metodos de instalación disponibles actualmente:
 > Primero debes descargar el repositorio, arriba a la derecha en la parte de "Code" dar a Download ZIP y una vez descargado extraer la carpeta dentro de descargas.
 
 1. Descargar Termux: https://f-droid.org/packages/com.termux/
-2. Dentro de termux permiso a archivos:
-      ```bash
-   termux-setup-storage
-   ```
-3. Ir al directorio del bot:
-   ```bash
-   cd storage/downloads/KomodoBot-Py-master/KomodoBot-Py-master
-   ```
-
 <h4>Python WhatsappBot created by library neonize</h4>
 <pre>
-<p># Installation for termux</p>
+<p># Instalación en Termux</p>
+termux-setup-storage
+cd storage/downloads/KomodoBot-Py-master/KomodoBot-Py-master
 pkg update && pkg upgrade -y
 pkg install python3
 
