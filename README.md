@@ -40,6 +40,9 @@ Estas son los metodos de instalación disponibles actualmente:
    ```bash
    cd storage/downloads/KomodoBot-Py-master/KomodoBot-Py-master
    ```
+
+<h4>Python WhatsappBot created by library neonize</h4>
+<pre>
 <p># Installation for termux</p>
 pkg update && pkg upgrade -y
 pkg install python3
