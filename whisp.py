@@ -47,6 +47,7 @@ def load_komodo_key():
         logging.error(f"Error al cargar la KomodoKey: {e}")
         return None
 
+# Cargar los comandos disponibles
 def load_commands():
     for _, module_name, _ in pkgutil.iter_modules(['kommands']):
         module = importlib.import_module(f'kommands.{module_name}')
@@ -56,15 +57,17 @@ def load_commands():
     for _, module_name, _ in pkgutil.iter_modules(['datamedia/comandos_de_prueba']):
         module = importlib.import_module(f'datamedia.comandos_de_prueba.{module_name}')
         if hasattr(module, 'register'):
-            module.register(commands)     
+            module.register(commands)
 
+# Función que maneja los mensajes recibidos
 def handler(client: NewClient, message: MessageEv):
     global komodo_key
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
+    sender = message.Info.MessageSource.Sender.User  # Número de teléfono del remitente
     msg_type = get_message_type(message)
     
-    # Detección de grupos o al privado
+    # Detección de grupos o chats privados
     is_group = message.Info.MessageSource.IsGroup
     group_info = message.Info.MessageSource if is_group else None
 
@@ -91,16 +94,17 @@ def handler(client: NewClient, message: MessageEv):
         args = text.split(" ")[1:]
 
         if command in commands:
-            commands[command](client, message, args, is_group)
+            commands[command](client, message, args, is_group, sender)  # Se pasa is_group y sender
             config.commands_processed += 1  
         else:
-            client.reply_message("Lo siento, comando no encontrado!", message)
+            client.reply_message("Lo siento, comando /{command} no encontrado!", message)
             logging.info(f"Comando no encontrado: {command}")
     else:
         logging.info(f"Mensaje recibido sin prefijo: {text}")
 
 load_commands()
 
+# Inicializar el cliente con los eventos necesarios
 def initialize(client):
     # Handler de mensajes
     @client.event(MessageEv)
@@ -114,4 +118,3 @@ def initialize(client):
             return get_bytes_from_name_or_url(url, MediaType.VIDEO)
         elif media_type == "audio":
             return get_bytes_from_name_or_url(url, MediaType.AUDIO)
-
