@@ -25,11 +25,13 @@ complete_komodo_key = build_komodo_key()
 
 komodo_key_path = os.path.join('datamedia', 'komodokey.json')
 
+# Guardar la KomodoKey en un archivo JSON
 def save_komodo_key(key):
     os.makedirs(os.path.dirname(komodo_key_path), exist_ok=True) 
     with open(komodo_key_path, 'w') as file:
         json.dump({"komodo_key": key}, file)
 
+# Cargar la KomodoKey desde el archivo JSON
 def load_komodo_key():
     if not os.path.exists(komodo_key_path):
         return None  
@@ -61,6 +63,10 @@ def handler(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
     msg_type = get_message_type(message)
+    
+    # Detección de grupos o al privado
+    is_group = message.Info.MessageSource.IsGroup
+    group_info = message.Info.MessageSource if is_group else None
 
     if komodo_key is None:
         komodo_key = load_komodo_key()
@@ -85,10 +91,9 @@ def handler(client: NewClient, message: MessageEv):
         args = text.split(" ")[1:]
 
         if command in commands:
-            commands[command](client, message, args)
+            commands[command](client, message, args, is_group)
             config.commands_processed += 1  
         else:
-            
             client.reply_message("Lo siento, comando no encontrado!", message)
             logging.info(f"Comando no encontrado: {command}")
     else:
@@ -97,7 +102,7 @@ def handler(client: NewClient, message: MessageEv):
 load_commands()
 
 def initialize(client):
-    # Handler client
+    # Handler de mensajes
     @client.event(MessageEv)
     def on_message(client: NewClient, message: MessageEv):
         handler(client, message)
@@ -109,3 +114,4 @@ def initialize(client):
             return get_bytes_from_name_or_url(url, MediaType.VIDEO)
         elif media_type == "audio":
             return get_bytes_from_name_or_url(url, MediaType.AUDIO)
+
