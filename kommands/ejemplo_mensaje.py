@@ -6,7 +6,7 @@ def register(commands):
     commands["hola"] = hola #Acá se define el comando, cambialo por el que tu quieras, el prefijo se añade automaticamente y puedes cambiarlo en "config.py" en la parte de prefix.
    # commands["adios"] = hola # Puedes añadir mas prefijos si los necesitas, de esta manera.
 
-def hola(client: NewClient, message: MessageEv, args):
+def hola(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
     client.send_message(chat, "Hola soy KomodoBot!") # Acá cambias lo que quieres que diga el bot
     
