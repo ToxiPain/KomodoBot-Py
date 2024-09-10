@@ -6,7 +6,7 @@ from neonize.events import MessageEv
 def register(commands):
     commands["notify"] = notify  # Define el comando, el prefijo se añade automáticamente.
 
-def notify(client: NewClient, message: MessageEv, args):
+def notify(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
     
     if len(args) < 2:
