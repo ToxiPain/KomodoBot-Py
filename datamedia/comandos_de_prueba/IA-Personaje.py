@@ -23,7 +23,7 @@ async def interact_with_characterai(char_id, message_text):
         # Retornar la respuesta del Character AI
         return f'{message.name}: {message.text}'
 
-def test_command(client: NewClient, message: MessageEv, args):
+def test_command(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     char_id = "vdP72Co12azBgsQJ8xus_UZE1VAF-_Olnkt6u3kedrM"  # Reemplaza con el ID del CharacterAI
     chat = message.Info.MessageSource.Chat
     
