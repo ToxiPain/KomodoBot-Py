@@ -2,7 +2,7 @@
 import requests, random
 from config import groq_apikey
 
-def ai_command(client, message, args):
+def ai_command(client, message, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
     
     if len(args) == 0:
