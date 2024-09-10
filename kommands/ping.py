@@ -9,7 +9,7 @@ last_ping_time = start_time
 def register(commands):
     commands["ping"] = ping_command
 
-def ping_command(client, message, args):
+def ping_command(client, message, args, is_group: bool, sender: str):
     global last_ping_time
 
     try:
