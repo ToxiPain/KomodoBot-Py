@@ -4,7 +4,7 @@ from neonize.events import MessageEv
 def register(commands):
     commands["seguir"] = seguir_canal
 
-def seguir_canal(client: NewClient, message: MessageEv, args):
+def seguir_canal(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     if len(args) < 1:
         client.reply_message("Por favor, proporciona el enlace del canal.", message)
         return
