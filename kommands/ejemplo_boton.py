@@ -8,7 +8,7 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 
-def boton(client: NewClient, message: MessageEv, args):
+def boton(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
     
     interactive_message = Message(
