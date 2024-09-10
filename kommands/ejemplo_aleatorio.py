@@ -6,7 +6,7 @@ from neonize.events import MessageEv
 def register(commands):
     commands["dado"] = dado #Acá se define el comando, cambialo por el que tu quieras, el prefijo se añade automaticamente y puedes cambiarlo en "config.py" en la parte de prefix.
 
-def dado(client: NewClient, message: MessageEv, args):
+def dado(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
     
     messages = ["1", "2", "3", "4", "5", "6"] # Acá se definen las variables que se elegiran aleatoriamente, puedes cambiarlo por texto o lo que quieras que el bot mande de forma aleatoria.
