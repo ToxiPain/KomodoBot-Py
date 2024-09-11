@@ -41,4 +41,22 @@ def menu(client: NewClient, message: MessageEv, args, is_group: bool, sender: st
         "Nuevas funciones generales se añadirán próximamente..."
     )
     
-    client.send_message(chat, menu_message)
+    # Enviar el mensaje
+    message_sent = client.send_message(chat, menu_message)
+    
+    # Reacción al mensaje
+    reaction(client, chat, message, "✅️")
+
+def reaction(client: NewClient, chat, message, emoji):
+    try:
+        client.send_message(
+            chat,
+            client.build_reaction(
+                chat,
+                sender=message.Info.MessageSource.Sender,
+                message_id=message.Info.ID,
+                reaction=emoji
+            ),
+        )
+    except Exception as e:
+        print(f"Error al reaccionar al mensaje: {e}")
