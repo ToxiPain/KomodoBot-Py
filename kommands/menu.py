@@ -1,5 +1,12 @@
 from neonize.client import NewClient
 from neonize.events import MessageEv
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
+    Message,
+    FutureProofMessage,
+    InteractiveMessage,
+    MessageContextInfo,
+    DeviceListMetadata,
+)
 
 def register(commands):
     commands["menu"] = menu
@@ -37,12 +44,41 @@ def menu(client: NewClient, message: MessageEv, args, is_group: bool, sender: st
         "⿻ /on /off\n"
         "⿻ /ban (@tag) /unban (@tag)\n"
         "⿻ /seguir\n"
-        "⿻ /notify\n\n"                        
-        "Nuevas funciones generales se añadirán próximamente..."
+        "⿻ /notify\n"                        
+        "⿻ *********"
     )
-    
-    message_sent = client.send_message(chat, menu_message)
-    
+
+    client.send_message(
+        chat,
+        Message(
+            viewOnceMessage=FutureProofMessage(
+                message=Message(
+                    messageContextInfo=MessageContextInfo(
+                        deviceListMetadata=DeviceListMetadata(),
+                        deviceListMetadataVersion=2,
+                    ),
+                    interactiveMessage=InteractiveMessage(
+                        body=InteractiveMessage.Body(text=menu_message),
+                        footer=InteractiveMessage.Footer(text="Nuevas funciones generales se añadirán próximamente..."),
+                        header=InteractiveMessage.Header(
+                            title="",
+                            subtitle="",
+                            hasMediaAttachment=False,
+                        ),
+                        nativeFlowMessage=InteractiveMessage.NativeFlowMessage(
+                            buttons=[
+                                InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                    name="cta_call",
+                                    buttonParamsJSON='{"display_text":"Menu de KomodoBot-Py","id":"000"}',
+                                ),
+                            ]
+                        ),
+                    ),
+                )
+            )
+        ),
+    )
+
     reaction(client, chat, message, "✅️")
 
 def reaction(client: NewClient, chat, message, emoji):
