@@ -41,10 +41,8 @@ def menu(client: NewClient, message: MessageEv, args, is_group: bool, sender: st
         "Nuevas funciones generales se añadirán próximamente..."
     )
     
-    # Enviar el mensaje
     message_sent = client.send_message(chat, menu_message)
     
-    # Reacción al mensaje
     reaction(client, chat, message, "✅️")
 
 def reaction(client: NewClient, chat, message, emoji):
