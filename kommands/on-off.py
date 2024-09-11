@@ -1,5 +1,3 @@
-# on_off.py (el script que me pasaste)
-
 from neonize.client import NewClient
 from neonize.events import MessageEv
 import json
