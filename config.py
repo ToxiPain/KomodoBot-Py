@@ -11,7 +11,7 @@ PREFIXES = ["/", ".", "#", "!"]
 OWNERS = ["50557418454", "50585424403", "xxxxxxxxx", "xxxxxxxxx"]
 
 # Manejo de ApiKeys
-groq_apikey = ["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"]
+groq_apikey = ["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"]
 
 # Contador global de comandos procesados
 commands_processed = 0
