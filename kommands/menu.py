@@ -7,14 +7,22 @@ def register(commands):
 
 def menu(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
-    push_name = message.Info.Pushname 
-
+    push_name = message.Info.Pushname
+    is_group = message.Info.MessageSource.IsGroup
+    
+    group_name = ""
+    
+    if is_group:
+        group_info = client.get_group_info(chat)
+        group_name = group_info.GroupName.Name if group_info and group_info.GroupName else ""
+    
     greeting = f"¡Hola, {push_name}! 👋\nEstos son los comandos disponibles\n\n"
-
+    
     menu_message = (
         f"┌────︶.︶.︶.︶.︶.︶.︶.︶ ୭̥⋆*｡\n"
         "✧ ₊ ˚ ✩ *KomodoBot-Py 🌅*\n"
         "✧ ₊ ˚ ✩ *Versión:* 1.0.2\n"
+        f"{f'✧ ₊ ˚ ✩ *Grupo:* {group_name}' if is_group else '✧ ₊ ˚ C H A T   P R I V A D O'}\n"  
         f"✧ ₊ ˚ ✩ ╰────︶.︶ ⸙ ͛ ͎ ͛  ︶.︶ ✧ ₊ ˚ ✩,\n{greeting}"
         "✎｡｡｡ *Comandos de ejemplo:*\n"
         "⿻ /hola\n"
@@ -32,5 +40,5 @@ def menu(client: NewClient, message: MessageEv, args, is_group: bool, sender: st
         "⿻ /notify\n\n"                        
         "Nuevas funciones generales se añadirán próximamente..."
     )
-
+    
     client.send_message(chat, menu_message)
