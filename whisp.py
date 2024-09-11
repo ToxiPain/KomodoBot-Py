@@ -26,13 +26,11 @@ complete_komodo_key = build_komodo_key()
 komodo_key_path = os.path.join('datamedia', 'komodokey.json')
 chat_states_path = os.path.join('datamedia', 'chat_states.json')
 
-# Guardar la KomodoKey en un archivo JSON
 def save_komodo_key(key):
     os.makedirs(os.path.dirname(komodo_key_path), exist_ok=True)
     with open(komodo_key_path, 'w') as file:
         json.dump({"komodo_key": key}, file)
 
-# Cargar la KomodoKey desde el archivo JSON
 def load_komodo_key():
     if not os.path.exists(komodo_key_path):
         return None
@@ -48,13 +46,11 @@ def load_komodo_key():
         logging.error(f"Error al cargar la KomodoKey: {e}")
         return None
 
-# Guardar el estado de los chats en el archivo JSON
 def save_chat_states():
     os.makedirs(os.path.dirname(chat_states_path), exist_ok=True)
     with open(chat_states_path, 'w') as file:
         json.dump(chat_states, file)
 
-# Cargar el estado de los chats desde el archivo JSON
 def load_chat_states():
     if not os.path.exists(chat_states_path):
         return {}
@@ -71,16 +67,25 @@ def load_chat_states():
 
 chat_states = load_chat_states()
 
-# Comando para activar el bot en un chat específico
+def is_owner(sender):
+    return sender in config.OWNERS
+
 def turn_on(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
+    if not is_owner(sender):
+        client.reply_message("Lo siento, solo los owners pueden usar este comando.", message)
+        return
+
     chat = message.Info.MessageSource.Chat
     chat_id = str(chat)  
     chat_states[chat_id] = "on"  # Establece el estado del chat en "on"
     save_chat_states() 
     client.reply_message("El bot ha sido activado en este chat.", message)
 
-# Comando para desactivar el bot en un chat específico
 def turn_off(client: NewClient, message: MessageEv, args, is_group: bool, sender: str):
+    if not is_owner(sender):
+        client.reply_message("Lo siento, solo los owners pueden usar este comando.", message)
+        return
+
     chat = message.Info.MessageSource.Chat
     chat_id = str(chat)  # Convertir el chat a un string
     chat_states[chat_id] = "off"  # Establece el estado del chat en "off"
@@ -156,7 +161,6 @@ def handler(client: NewClient, message: MessageEv):
 
 load_commands()
 
-# Inicializar el cliente con los eventos necesarios
 def initialize(client):
     # Handler de mensajes
     @client.event(MessageEv)
