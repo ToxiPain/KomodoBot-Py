@@ -10,12 +10,11 @@ phonenumbers==8.13.52
 neonize==0.3.9
 pillow==11.1.0
 protobuf==5.29.3
-python-magic-bin==0.4.14  # Última versión disponible para Windows
 requests==2.32.3
 segno==1.6.1
+python-magic==0.4.27
 soupsieve==2.5
 tqdm==4.67.1
 asyncio==3.4.3
 characterai==1.0.1
 urllib3==2.2.2
-#add snakechat @all
