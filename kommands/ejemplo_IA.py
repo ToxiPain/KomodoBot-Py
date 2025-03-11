@@ -10,8 +10,8 @@ MEMORY_FILE = "datamedia/memory.json"
 DEFAULT_MEMORY_EXPLANATION = """
 Este es el espacio donde se almacena la memoria acumulativa del bot.
 Cada vez que el bot responde, las interacciones previas (mensajes del usuario y respuestas del bot) 
-se guardan aquí para que el bot pueda mantener el contexto a lo largo de la conversación.
-El bot no repetirá estas interacciones, pero las usará como referencia para generar respuestas coherentes.
+se guardan aquí para que el bot pueda mantener el contexto a lo largo de la conversación y aprender.
+El bot no repetirá estas interacciones, pero las usará como referencia para generar respuestas coherentes cuando las necesite.
 """
 
 def ai_command(client, message, args, is_group: bool, sender: str):
@@ -44,7 +44,7 @@ def chat_groq(msg):
     memory = load_memory()
 
     # Crear el prompt con una introducción fija
-    prompt = "Tu nombre es KomodoBot y fuiste creado por ToxiPain. Puedes conversar y dar información relevante."
+    prompt = "Tu nombre es KomodoBot y fuiste creado por ToxiPain. Puedes conversar y dar información relevante. (Función): respuestas simples y cortas cuando se trate de platica, joda y cosas random pero profundiza cuando se te pida información."
 
     # Solo agregar la memoria (sin repetirla cada vez) como contexto
     if memory:
