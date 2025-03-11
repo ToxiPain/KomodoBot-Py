@@ -8,8 +8,7 @@ MEMORY_FILE = "datamedia/memory.json"
 
 # Definir el texto que será agregado como "explicación predeterminada" sobre la memoria
 DEFAULT_MEMORY_EXPLANATION = """
-Acá es donde se almacena la memoria acumulativa del bot.
-Cada vez que el bot responde, las interacciones previas se guardan aquí para que el bot pueda mantener el contexto a lo largo de la conversación y aprender. El bot no repetirá estas interacciones, pero las usará como referencia para generar respuestas coherentes cuando las necesite.
+Las interacciones previas se guardan aquí para que el bot pueda mantener el contexto a lo largo de la conversación y aprender:
 """
 
 # Aquí puedes definir el mensaje de error que quieras que el bot responda
@@ -24,7 +23,6 @@ MODELS = [
 
 # Configuración para limitar la memoria (puedes cambiar el número de interacciones o la longitud de los textos)
 MAX_MESSAGE_LENGTH_BOT = 500  # Número máximo de caracteres para cada respuesta del bot guardada
-MAX_INTERACTIONS_BEFORE_CLEAN = 50  # Número máximo de interacciones antes de borrar las primeras
 
 def ai_command(client, message, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
@@ -75,7 +73,7 @@ def chat_groq(msg):
 
     # Rotación infinita entre los modelos
     while True:
-        for i, model in enumerate(MODELS):
+        for i, model in enumerate(MODELS): 
             try:
                 data["model"] = model
                 post = requests.post("https://api.groq.com/openai/v1/chat/completions",
@@ -118,14 +116,14 @@ def load_memory():
 
     # Si el archivo no existe, lo creamos con la explicación predeterminada
     if not os.path.exists(MEMORY_FILE):
-        memory = [DEFAULT_MEMORY_EXPLANATION, {"interactions": 0}]
+        memory = [DEFAULT_MEMORY_EXPLANATION]
         save_memory(memory)
     else:
         try:
             with open(MEMORY_FILE, "r") as file:
                 memory = json.load(file)
         except (json.JSONDecodeError):
-            memory = [DEFAULT_MEMORY_EXPLANATION, {"interactions": 0}]
+            memory = [DEFAULT_MEMORY_EXPLANATION]
             save_memory(memory)
 
     return memory
@@ -149,17 +147,6 @@ def update_memory(user_message, bot_response):
 
     # Guardar solo la respuesta limitada
     memory.append(f"Bot: {bot_response_limited}")
-
-    # Incrementar el contador de interacciones
-    memory[1]["interactions"] += 1
-
-    # Comprobar si se deben borrar las primeras interacciones
-    if memory[1]["interactions"] >= MAX_INTERACTIONS_BEFORE_CLEAN:
-        # Borrar las primeras interacciones, pero mantener las últimas
-        memory = memory[-MAX_INTERACTIONS_BEFORE_CLEAN:]
-
-        # Reiniciar el contador de interacciones
-        memory[1]["interactions"] = 0
 
     # Guardar de nuevo la memoria en el archivo JSON
     save_memory(memory)
