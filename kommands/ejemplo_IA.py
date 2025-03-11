@@ -33,7 +33,7 @@ def chat_groq(msg):
                 "content": msg,
             }
         ],
-        "model": "llama3-8b-8192"
+        "model": "deepseek-r1-distill-llama-70b-specdec"
     }
 
     post = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=data).json()
