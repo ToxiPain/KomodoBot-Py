@@ -1,158 +1,126 @@
-import requests, random
+import requests
 import json
 import os
+import random
 from config import groq_apikey
 
-# Definir la ruta del archivo JSON dentro de la carpeta 'datamedia'
 MEMORY_FILE = "datamedia/memory.json"
-
-# Definir el texto que será agregado como "explicación predeterminada" sobre la memoria
 DEFAULT_MEMORY_EXPLANATION = """
 Las interacciones previas se guardan aquí para que el bot pueda mantener el contexto a lo largo de la conversación y aprender:
 """
-
-# Aquí puedes definir el mensaje de error que quieras que el bot responda
-ERROR_MESSAGE = "Ha ocurrido un error al generar la respuesta. El servidor podría estar saturado..."
-
-# Definir los modelos disponibles
+ERROR_MESSAGE = "Ha ocurrido un error con el Bot al generar la respuesta. El servidor podría estar saturado..."
 MODELS = [
     "llama-3.3-70b-specdec",
     "llama-3.3-70b-versatile",
-    "llama3-70b-8192"
+    "llama3-70b-8192",
+    "llama3-8b-8192"  # Nuevo modelo añadido aquí
 ]
+CURRENT_MODEL_INDEX_FILE = "datamedia/model_index.json"
+MAX_MESSAGE_LENGTH_BOT = 500
+PROMPT_FILE = "datamedia/prompt.json"
+DEFAULT_PROMPT = "Tu nombre es KomodoBot un bot de Whatsapp y fuiste creado por ToxiPain. Puedes conversar y dar información relevante. (Función): respuestas simples y cortas cuando se trate de platica, joda y cosas random pero profundiza cuando se te pida información."
 
-# Configuración para limitar la memoria (puedes cambiar el número de interacciones o la longitud de los textos)
-MAX_MESSAGE_LENGTH_BOT = 500  # Número máximo de caracteres para cada respuesta del bot guardada
+def get_current_model_index():
+    if os.path.exists(CURRENT_MODEL_INDEX_FILE):
+        with open(CURRENT_MODEL_INDEX_FILE, "r") as file:
+            try:
+                return json.load(file).get("index", 0)
+            except json.JSONDecodeError:
+                return 0
+    return 0
+
+def save_current_model_index(index):
+    with open(CURRENT_MODEL_INDEX_FILE, "w") as file:
+        json.dump({"index": index}, file)
 
 def ai_command(client, message, args, is_group: bool, sender: str):
     chat = message.Info.MessageSource.Chat
-
     if len(args) == 0:
         client.reply_message(
             "Uso de comando: Escribe lo que le dirás al bot, ejemplo de uso /bot (texto)",
             message
-        )  # Esto enviará en caso de que no se añada texto luego del comando.
+        )
         return
-
     user_message = " ".join(args)
-    response = chat_groq(user_message)
-
-    # Guardar la nueva interacción en la memoria
-    update_memory(user_message, response)
-
-    client.reply_message(response, message)
-
+    response, clean_response = chat_groq(user_message)
+    update_memory(user_message, clean_response)  # Guardamos solo la respuesta limpia
+    client.reply_message(response, message)  # Enviamos la respuesta completa (con el marco)
 
 def chat_groq(msg):
+    model_index = get_current_model_index()
+    model = MODELS[model_index]
     apikey = random.choice(groq_apikey)
     headers = {
         "Authorization": f"Bearer {apikey}",
         "Content-Type": "application/json"
     }
-
-    # Cargar la memoria anterior
     memory = load_memory()
-
-    # Crear el prompt con una introducción fija
-    prompt = "Tu nombre es KomodoBot y fuiste creado por ToxiPain. Puedes conversar y dar información relevante. (Función): respuestas simples y cortas cuando se trate de platica, joda y cosas random pero profundiza cuando se te pida información."
-
-    # Solo agregar la memoria (sin repetirla cada vez) como contexto
+    prompt = load_prompt()  # Cargar el prompt desde el archivo
     if memory:
         prompt += "\n\nMemoria actual:\n" + "\n".join(memory)
-
-    # Añadir el mensaje actual del usuario
     data = {
-        "messages": [{
-            "role": "system",
-            "content": prompt
-        }, {
-            "role": "user",
-            "content": msg,
-        }]
+        "model": model,
+        "messages": [{"role": "system", "content": prompt}, {"role": "user", "content": msg}]
     }
-
-    # Rotación infinita entre los modelos
-    while True:
-        for i, model in enumerate(MODELS): 
-            try:
-                data["model"] = model
-                post = requests.post("https://api.groq.com/openai/v1/chat/completions",
-                                     headers=headers,
-                                     json=data)
-
-                # Comprobar si la solicitud fue exitosa (status code 200)
-                post.raise_for_status()  # Lanza un error si la respuesta no es exitosa
-
-                # Verificar que la respuesta contiene la estructura esperada
-                response_data = post.json()
-                if "choices" in response_data and len(response_data["choices"]) > 0:
-                    return response_data["choices"][0]["message"]["content"]
-                else:
-                    # Si la respuesta no contiene la estructura esperada
-                    return f"{ERROR_MESSAGE} (Komodo AI-Server {i+1})"
-
-            except requests.exceptions.RequestException as e:
-                # En caso de error de red o de conexión con el modelo actual
-                print(f"Error de conexión con {model}: {e}")  # Se puede imprimir en el log para depuración
-                continue  # Pasar al siguiente modelo
-
-            except (KeyError, ValueError) as e:
-                # Si el formato de la respuesta no es el esperado
-                print(f"Error en los datos de la respuesta con {model}: {e}")  # Se puede imprimir en el log para depuración
-                continue  # Pasar al siguiente modelo
-
-        # Si todos los modelos fallan, el ciclo volverá al primer modelo
-        # No se termina, el ciclo sigue indefinidamente
-
-    # Si alguna vez sale del ciclo por alguna razón, retornará el mensaje de error
-    return f"{ERROR_MESSAGE} (Komodo AI-Server {i+1})"
-
+    try:
+        post = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=data)
+        post.raise_for_status()
+        response_data = post.json()
+        if "choices" in response_data and response_data["choices"]:
+            response_text = response_data["choices"][0]["message"]["content"]
+            # Devolver el marco completo y la respuesta limpia
+            response = f"𝗞𝗼𝗺𝗼𝗱𝗼𝗕𝗼𝘁-𝗣𝘆 🌅\n> _*Servidor #{model_index + 1}*_\n\n❝{response_text}❞"
+            clean_response = response_text  # Solo la respuesta limpia
+            return response, clean_response
+        else:
+            raise ValueError("Formato inesperado en la respuesta de la IA.")
+    except (requests.exceptions.RequestException, ValueError) as e:
+        response_error = f"{ERROR_MESSAGE} (Komodo AI-Server {model_index + 1})"
+        model_index = (model_index + 1) % len(MODELS)
+        save_current_model_index(model_index)
+        return response_error, ERROR_MESSAGE
 
 def load_memory():
-    """Carga la memoria desde el archivo JSON, añadiendo una explicación predeterminada si es necesario"""
-    # Crear la carpeta 'datamedia' si no existe
     if not os.path.exists("datamedia"):
         os.makedirs("datamedia")
-
-    # Si el archivo no existe, lo creamos con la explicación predeterminada
     if not os.path.exists(MEMORY_FILE):
-        memory = [DEFAULT_MEMORY_EXPLANATION]
-        save_memory(memory)
-    else:
-        try:
-            with open(MEMORY_FILE, "r") as file:
-                memory = json.load(file)
-        except (json.JSONDecodeError):
-            memory = [DEFAULT_MEMORY_EXPLANATION]
-            save_memory(memory)
-
-    return memory
-
+        save_memory([DEFAULT_MEMORY_EXPLANATION])
+    try:
+        with open(MEMORY_FILE, "r") as file:
+            return json.load(file)
+    except json.JSONDecodeError:
+        save_memory([DEFAULT_MEMORY_EXPLANATION])
+        return [DEFAULT_MEMORY_EXPLANATION]
 
 def save_memory(memory):
-    """Guarda la memoria en el archivo JSON"""
     with open(MEMORY_FILE, "w") as file:
         json.dump(memory, file, indent=4)
 
-
 def update_memory(user_message, bot_response):
-    """Actualiza la memoria con el nuevo mensaje y la respuesta"""
     memory = load_memory()
-
-    # Añadir la nueva interacción a la memoria (solo los últimos mensajes)
     memory.append(f"Usuario: {user_message}")
-
-    # Limitar la longitud de la respuesta del bot
-    bot_response_limited = bot_response[:MAX_MESSAGE_LENGTH_BOT]
-
-    # Guardar solo la respuesta limitada
-    memory.append(f"Bot: {bot_response_limited}")
-
-    # Guardar de nuevo la memoria en el archivo JSON
+    memory.append(f"Bot: {bot_response[:MAX_MESSAGE_LENGTH_BOT]}")  # Guardamos solo la respuesta limpia
     save_memory(memory)
 
+# Función para cargar el prompt desde el archivo JSON
+def load_prompt():
+    if not os.path.exists("datamedia"):
+        os.makedirs("datamedia")
+    if not os.path.exists(PROMPT_FILE):
+        save_prompt(DEFAULT_PROMPT)
+    try:
+        with open(PROMPT_FILE, "r") as file:
+            return json.load(file).get("prompt", DEFAULT_PROMPT)
+    except json.JSONDecodeError:
+        save_prompt(DEFAULT_PROMPT)
+        return DEFAULT_PROMPT
+
+# Función para guardar el prompt en el archivo JSON
+def save_prompt(prompt):
+    with open(PROMPT_FILE, "w") as file:
+        json.dump({"prompt": prompt}, file, indent=4)
 
 def register(commands):
-    commands["bot"] = ai_command  # Puedes cambiar estos prefijos por los que quieras o eliminar los sobrantes.
+    commands["bot"] = ai_command
     commands["ia"] = ai_command
     commands["ai"] = ai_command
